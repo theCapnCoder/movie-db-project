@@ -1,0 +1,12 @@
+DROP TABLE "Character" CASCADE;
+DROP TABLE "Country" CASCADE;
+DROP TABLE "FavoriteMovie" CASCADE;
+DROP TABLE "File" CASCADE;
+DROP TABLE "Genre" CASCADE;
+DROP TABLE "Movie" CASCADE;
+DROP TABLE "MovieGenres" CASCADE;
+DROP TABLE "Person" CASCADE;
+DROP TABLE "PersonPhotos" CASCADE;
+DROP TABLE "UserAccount" CASCADE;
+DROP TYPE character_role;
+DROP TYPE gender_type;
