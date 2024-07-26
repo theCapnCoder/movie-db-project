@@ -1,30 +1,65 @@
 # Movie Database Project
 
+## Project Setup
+
+### 1. Start the containers:
+```
+docker-compose up
+```
+**Note that the PostgreSQL database will be available on port `5433`.**
+
+### 2. Create the tables in the database:
+Execute the SQL statements in the create_tables.sql file.
+
+### 3. Seed the database with initial data:
+Execute the SQL statements in the seed_data.sql file.
+
+### 4. To reset the database (if needed), drop the existing data:
+Execute the SQL statements in the drop_data.sql file.
+
 ## ER Diagram
+
+![Mermaid](./mermaid.png)
 
 ```mermaid
 erDiagram
-    USER {
+    c[Country] {
         int id PK
-        string username
-        string first_name
-        string last_name
-        string email
-        string password
-        int avatar_id FK
-        datetime created_at
-        datetime updated_at
+        string name
     }
-    FILE {
+
+    f[File] {
         int id PK
         string file_name
         string mime_type
-        string key
+        string file_key
         string url
         datetime created_at
         datetime updated_at
     }
-    MOVIE {
+
+    p[Person] {
+        int id PK
+        string first_name
+        string last_name
+        text biography
+        date date_of_birth
+        gender_type gender
+        int country_id FK
+        int primary_photo_id FK
+        datetime created_at
+        datetime updated_at
+    }
+
+    pp[PersonPhotos] {
+        int id PK
+        int person_id FK
+        int photo_id FK
+        datetime created_at
+        datetime updated_at
+    }
+
+    m[Movie] {
         int id PK
         string title
         text description
@@ -37,60 +72,52 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
-    GENRE {
+
+    g[Genre] {
         int id PK
         string name
     }
-    MOVIEGENRE {
+
+    mg[MovieGenres] {
         int movie_id FK
         int genre_id FK
     }
-    CHARACTER {
+
+    ch[Character] {
         int id PK
         string name
         text description
-        enum role
+        character_role role
         int movie_id FK
         int actor_id FK
         datetime created_at
         datetime updated_at
     }
-    PERSON {
+
+    ua[UserAccount] {
         int id PK
+        string username
         string first_name
         string last_name
-        text biography
-        date date_of_birth
-        enum gender
-        int country_id FK
-        int primary_photo_id FK
+        string email
+        string password
+        int avatar_id FK
         datetime created_at
         datetime updated_at
     }
-    PERSONPHOTO {
-        int person_id FK
-        int photo_id FK
-    }
-    COUNTRY {
-        int id PK
-        string name
-    }
-    FAVORITEMOVIE {
+
+    fm[FavoriteMovie] {
         int user_id FK
         int movie_id FK
     }
-    
-    USER ||--o{ FILE : "avatar"
-    MOVIE ||--o{ FILE : "poster"
-    MOVIE ||--o{ COUNTRY : "produced in"
-    MOVIE ||--o{ PERSON : "directed by"
-    MOVIE ||--o{ MOVIEGENRE : "has"
-    MOVIEGENRE ||--o{ GENRE : "classified as"
-    CHARACTER ||--o{ MOVIE : "appears in"
-    CHARACTER ||--o{ PERSON : "played by"
-    PERSON ||--o{ COUNTRY : "born in"
-    PERSON ||--o{ FILE : "has"
-    PERSONPHOTO ||--o{ FILE : "includes"
-    PERSONPHOTO ||--o{ PERSON : "has"
-    FAVORITEMOVIE ||--o{ USER : "favorited by"
-    FAVORITEMOVIE ||--o{ MOVIE : "includes"
+
+    c ||--o{ p : "has"
+    f ||--o{ p : "has"
+    p ||--o{ pp : "has"
+    p ||--o{ ch : "acts in"
+    m ||--o{ p : "directed by"
+    m ||--o{ mg : "has"
+    g ||--o{ mg : "includes"
+    ch ||--o{ m : "belongs to"
+    ua ||--o{ fm : "favorites"
+    m ||--o{ fm : "favorited by"
