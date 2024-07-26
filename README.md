@@ -19,7 +19,12 @@ Execute the SQL statements in the drop_data.sql file.
 
 ## ER Diagram
 
-**Note**: The Mermaid diagram is optimized for viewing with the Markdown Mermaid plugin for VS Code ![Plugin](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid). Therefore, the diagram might not be displayed accurately here. For the best visualization, use the plugin in VS Code.
+**Note**:
+
+[Plugin link](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+
+ The Mermaid diagram is optimized for viewing with the Markdown Mermaid plugin for VS Code . Therefore, the diagram might not be displayed accurately here. For the best visualization, use the plugin in VS Code.
+
 
 ![Mermaid](./mermaid.png)
 
